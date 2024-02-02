@@ -3,7 +3,6 @@ package router
 import (
 	"github.com/gorilla/mux"
 	"github.com/sarsembek/TSIS1/handlers"
-	"net/http"
 )
 
 func NewRouter() *mux.Router {
