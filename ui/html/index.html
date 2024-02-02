@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            margin: 20px;
+        }
+
+        .pokemon-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .pokemon-card:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pokémon List</h1>
+    </header>
+    <main id="pokemonList"></main>
+
+    <script>
+        // Fetch Pokémon data and populate the UI
+        async function fetchPokemonData() {
+            const response = await fetch('http://localhost:8080/pokemon');
+            const data = await response.json();
+            console.log(data);
+            return data.results;
+        }
+
+        // Display Pokémon cards on the page
+        async function displayPokemonCards() {
+            const pokemonList = await fetchPokemonData();
+            const pokemonListContainer = document.getElementById('pokemonList');
+
+            pokemonList.forEach(pokemon => {
+                const card = document.createElement('div');
+                card.classList.add('pokemon-card');
+
+                const nameElement = document.createElement('h2');
+                nameElement.textContent = pokemon.name;
+
+                card.appendChild(nameElement);
+                pokemonListContainer.appendChild(card);
+            });
+        }
+
+        // Call the function to display Pokémon cards on page load
+        displayPokemonCards();
+    </script>
+</body>
+</html>
